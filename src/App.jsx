@@ -7,6 +7,7 @@ import ListEditor from './components/ListEditor.jsx'
 import DictationSetup from './components/DictationSetup.jsx'
 import DictationQuiz from './components/DictationQuiz.jsx'
 import DictationResult from './components/DictationResult.jsx'
+import Settings from './components/Settings.jsx'
 import './App.css'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   const [theme, setTheme] = useState(
     () => localStorage.getItem('theme') || 'sand',
   )
+  const [showSettings, setShowSettings] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -83,6 +85,28 @@ function App() {
           <h1 className="asking-title">{dictList.name}</h1>
         )}
         <div className="top-bar-actions">
+          <button
+            type="button"
+            className="btn btn-icon"
+            title="设置"
+            aria-label="设置"
+            onClick={() => setShowSettings(true)}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </button>
           <div className="theme-switcher" role="group" aria-label="选择主题">
             {themes.map((item) => (
               <button
@@ -100,6 +124,7 @@ function App() {
           </div>
         </div>
       </div>
+      {showSettings && <Settings onClose={() => setShowSettings(false)} />}
       <Routes>
         <Route
           path="/"

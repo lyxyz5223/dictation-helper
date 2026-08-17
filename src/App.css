@@ -313,6 +313,27 @@
   overflow-x: auto;
 }
 
+/* 设置弹窗 */
+.settings-card {
+  max-width: 380px;
+}
+
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-label {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.settings-group input[type='range'] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+
 /* 编辑器表单 */
 .editor-form {
   display: flex;
