@@ -1,0 +1,743 @@
+/* 应用整体布局 */
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  min-height: 100svh;
+}
+
+/* 听写页: 高度锁死一屏, 内容超出时允许垂直滚动 */
+.app-dictate {
+  height: 100svh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
+}
+
+/* 顶部工具栏: 主题切换始终在右上角, 听写页返回按钮在左, 标题居中 */
+.top-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+/* 左上角返回按钮 */
+.btn-back {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+/* 固定图标尺寸, 防止被 flex 压缩 */
+.btn-back svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.asking-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.theme-switcher {
+  display: flex;
+  gap: 8px;
+}
+
+.theme-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding: 0;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.theme-dot:hover {
+  transform: scale(1.15);
+}
+
+.theme-dot.active {
+  border-color: var(--text-strong);
+}
+
+.theme-dot[data-theme-id='sand'] {
+  background: #c68a3c;
+}
+
+.theme-dot[data-theme-id='green'] {
+  background: #4caf7d;
+}
+
+.theme-dot[data-theme-id='blue'] {
+  background: #4a90d9;
+}
+
+.theme-dot[data-theme-id='pink'] {
+  background: #e0708c;
+}
+
+.theme-dot[data-theme-id='purple'] {
+  background: #7d6bc4;
+}
+
+.theme-dot[data-theme-id='dark'] {
+  background: #2a2b33;
+}
+
+/* 页面顶部标题栏 */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* 通用按钮 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: #fff;
+}
+
+.btn-danger {
+  color: var(--danger);
+}
+
+.btn-danger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-lg {
+  font-size: 16px;
+  padding: 12px 32px;
+}
+
+.empty-tip {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 48px 0;
+}
+
+/* 列表管理页 */
+.list-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.list-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.list-card-head h2 {
+  font-size: 18px;
+  color: var(--text-strong);
+  margin-bottom: 4px;
+}
+
+.list-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.list-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+/* 删除确认弹窗 */
+.modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.modal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-width: 360px;
+  width: 90%;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-card h2 {
+  font-size: 18px;
+  color: var(--text-strong);
+}
+
+.modal-card p {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* 导入格式说明弹窗 */
+.modal-help {
+  max-width: 460px;
+}
+
+.help-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.help-content h3 {
+  font-size: 15px;
+  color: var(--text-strong);
+  margin: 0 0 4px;
+}
+
+.help-content p {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.help-content pre {
+  margin: 0;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+  overflow-x: auto;
+}
+
+/* 编辑器表单 */
+.editor-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.field input {
+  min-width: 240px;
+}
+
+.field input,
+.field select,
+.add-row input {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.field input:focus,
+.field select:focus,
+.add-row input:focus {
+  border-color: var(--primary);
+}
+
+/* 词条列表 */
+.words-section {
+  margin-bottom: 24px;
+}
+
+.words-section h2 {
+  font-size: 16px;
+  color: var(--text-strong);
+  margin-bottom: 12px;
+}
+
+/* 词条区标题行与导入按钮 */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.section-head h2 {
+  margin-bottom: 0;
+}
+
+.section-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.import-message {
+  font-size: 13px;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.word-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.word-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+/* 词条列表表头, 与编辑行列对齐 */
+.word-header {
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+}
+
+.word-header-text {
+  flex: 0 0 30%;
+  min-width: 120px;
+}
+
+.word-header-translation {
+  flex: 1;
+  min-width: 0;
+}
+
+.word-index {
+  width: 24px;
+  color: var(--text-muted);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.word-text {
+  font-weight: 600;
+  color: var(--text-strong);
+  flex: 0 0 30%;
+  min-width: 120px;
+}
+
+.word-translation {
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.your-answer {
+  color: var(--danger);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* 添加词条行, 列表末尾的加号 */
+.add-row {
+  list-style: none;
+}
+
+.btn-add {
+  width: 100%;
+  padding: 10px;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1.5px dashed var(--border);
+  border-radius: 10px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.btn-add:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* 词条编辑行: 输入框与上方展示列对齐 */
+.edit-row {
+  gap: 12px;
+}
+
+.edit-row .word-input {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.edit-row .word-input:focus {
+  border-color: var(--primary);
+}
+
+.edit-row .word-input-text {
+  flex: 0 0 30%;
+  min-width: 120px;
+}
+
+.edit-row .word-input-translation {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 听写设置页 */
+.setup-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.setup-card h2 {
+  font-size: 22px;
+  color: var(--text-strong);
+}
+
+.setup-meta {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.setup-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.option-label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.option-group {
+  display: flex;
+  gap: 8px;
+}
+
+.option.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(79, 110, 247, 0.08);
+}
+
+.option-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* 听写进行页: 圆点进度, 深色已答, 浅色未答 */
+.dot-progress {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.3s, transform 0.2s;
+}
+
+.dot.done {
+  background: var(--primary);
+}
+
+.dot.current {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--primary);
+}
+
+.progress-text {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* 听写题目区: 输入框占中间行, 精确垂直居中于窗口 */
+.question-card {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 0;
+}
+
+/* 提示区(播放/释义)固定在输入框上方 */
+.prompt-top {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.btn-speak-big {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.btn-speak-big:hover {
+  background: var(--primary-hover);
+  transform: scale(1.05);
+}
+
+.play-triangle {
+  width: 0;
+  height: 0;
+  border-left: 26px solid #fff;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  margin-left: 6px;
+}
+
+.question-hint {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.chinese-hint {
+  max-width: 100%;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-strong);
+  text-align: center;
+  word-break: break-word;
+}
+
+/* 听写输入框: 无边框透明, 输入内容大号居中显示 */
+.answer-input {
+  width: min(70%, 480px);
+  max-width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--text-strong);
+  padding: 8px 0;
+}
+
+.answer-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* 听写页: 题目区占满剩余空间, 底部留白给固定操作栏 */
+.dictation-asking {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding-bottom: 88px;
+}
+
+/* 底部固定操作栏: 上一题, 下一题, 提交始终贴在视口底部 */
+.bottom-actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  z-index: 10;
+}
+
+.btn-submit {
+  min-width: 120px;
+}
+
+/* 听写结果页 */
+.score-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-width: 520px;
+  margin: 0 auto 32px;
+  padding: 40px;
+  text-align: center;
+}
+
+.score-percent {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.score-meta {
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.wrong-section h2 {
+  font-size: 16px;
+  color: var(--text-strong);
+  margin-bottom: 12px;
+}
+
+/* 完整作答记录 */
+.all-section {
+  margin-top: 24px;
+}
+
+.all-section h2 {
+  font-size: 16px;
+  color: var(--text-strong);
+  margin-bottom: 12px;
+}
+
+/* 答对行浅色高亮, 答错行红色标记 */
+.result-correct {
+  background: rgba(76, 175, 125, 0.08);
+}
+
+.result-wrong {
+  background: rgba(229, 72, 77, 0.08);
+  border-color: var(--danger);
+}

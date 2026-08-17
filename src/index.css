@@ -1,0 +1,122 @@
+/* 全局基础样式与主题变量, 默认米黄主题 */
+:root {
+  --bg: #f7f1e4;
+  --surface: #fffdf6;
+  --border: #e7dcc4;
+  --text: #6b5d4a;
+  --text-muted: #a99a80;
+  --text-strong: #33291b;
+  --primary: #c68a3c;
+  --primary-hover: #b0762c;
+  --danger: #cf5c5c;
+  --radius: 14px;
+  --shadow: 0 4px 20px rgba(90, 70, 40, 0.08);
+  --sans: system-ui, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+}
+
+/* 青绿主题 */
+[data-theme='green'] {
+  --bg: #eef6f1;
+  --surface: #fbfffc;
+  --border: #d3e8dc;
+  --text: #4d6b5b;
+  --text-muted: #8fada0;
+  --text-strong: #22382d;
+  --primary: #4caf7d;
+  --primary-hover: #3e9969;
+  --danger: #d9534f;
+  --shadow: 0 4px 20px rgba(40, 90, 65, 0.08);
+}
+
+/* 蔚蓝主题 */
+[data-theme='blue'] {
+  --bg: #edf3fa;
+  --surface: #fbfdff;
+  --border: #d2e0ef;
+  --text: #4a5c73;
+  --text-muted: #8aa1ba;
+  --text-strong: #1f2e42;
+  --primary: #4a90d9;
+  --primary-hover: #3b7cc4;
+  --danger: #d9534f;
+  --shadow: 0 4px 20px rgba(40, 80, 130, 0.08);
+}
+
+/* 樱粉主题 */
+[data-theme='pink'] {
+  --bg: #faf0f3;
+  --surface: #fffdfe;
+  --border: #f0d6de;
+  --text: #79555f;
+  --text-muted: #b08d97;
+  --text-strong: #43262e;
+  --primary: #e0708c;
+  --primary-hover: #d05a78;
+  --danger: #d9534f;
+  --shadow: 0 4px 20px rgba(140, 70, 90, 0.08);
+}
+
+/* 黛紫主题 */
+[data-theme='purple'] {
+  --bg: #f1eef8;
+  --surface: #fdfcff;
+  --border: #ddd5ee;
+  --text: #5d5474;
+  --text-muted: #978cad;
+  --text-strong: #2b2440;
+  --primary: #7d6bc4;
+  --primary-hover: #6a57b1;
+  --danger: #d9534f;
+  --shadow: 0 4px 20px rgba(90, 70, 140, 0.08);
+}
+
+/* 暗夜主题 */
+[data-theme='dark'] {
+  --bg: #1e1f24;
+  --surface: #26272e;
+  --border: #383a44;
+  --text: #c9cbd4;
+  --text-muted: #8b8e9c;
+  --text-strong: #f2f3f6;
+  --primary: #7c8cf5;
+  --primary-hover: #93a1f7;
+  --danger: #e5706f;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 16px/1.6 var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
