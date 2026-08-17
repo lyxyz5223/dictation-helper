@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { speak } from '../utils/speech.js'
+import { speak, stopSpeaking } from '../utils/speech.js'
 
 // 从会话存储读取听写状态, 刷新后不丢失
 function loadSession() {
@@ -27,11 +27,12 @@ function DictationQuiz({ lists }) {
   const remaining = quiz.filter((_, i) => answers[i]?.trim() === '').length
   const allDone = quiz.length > 0 && remaining === 0
 
-  // 语音模式下切题时自动朗读当前词
+  // 语音模式下切题时自动朗读当前词, 清理时停止避免重复播放
   useEffect(() => {
     if (mode === 'voice' && currentWord) {
       speak(currentWord.text, list.lang)
     }
+    return stopSpeaking
   }, [mode, index, currentWord, list.lang])
 
   // 更新当前题的答案并同步会话

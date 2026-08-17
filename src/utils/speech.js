@@ -1,5 +1,8 @@
 const CONFIG_KEY = 'dictation-helper:speech'
 
+// 保存当前有道发音的音频实例
+let currentAudio = null
+
 // 默认语音配置, 使用网易有道词典 API
 const DEFAULT_CONFIG = {
   engine: 'youdao', // youdao 有道词典, browser 浏览器语音
@@ -22,11 +25,28 @@ export function saveSpeechConfig(config) {
   localStorage.setItem(CONFIG_KEY, JSON.stringify(config))
 }
 
+// 停止当前有道发音, 用于组件卸载或重新朗读前
+export function stopSpeaking() {
+  if (currentAudio) {
+    currentAudio.pause()
+    currentAudio.currentTime = 0
+    currentAudio = null
+  }
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel()
+  }
+}
+
 // 使用有道词典 API 播放发音, 返回是否成功
 function speakWithYoudao(text, accent) {
+  if (currentAudio) {
+    currentAudio.pause()
+    currentAudio.currentTime = 0
+  }
   const audio = new Audio(
     `https://dict.youdao.com/dictvoice?audio=${encodeURIComponent(text)}&type=${accent}`,
   )
+  currentAudio = audio
   audio.play()
   return true
 }
